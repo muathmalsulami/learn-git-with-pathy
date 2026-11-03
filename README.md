@@ -1,1 +1,1 @@
-# learn-git-with-pathy
+# pathy-project
