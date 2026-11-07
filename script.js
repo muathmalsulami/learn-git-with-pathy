@@ -1,18 +1,14 @@
-/*
- * PERSONALIZE BEFORE PUBLISHING
- * Add ONLY links that belong to you. Leave a field empty to hide that button.
- * Example: github: 'https://github.com/your-handle'
- */
+// Verified public profiles. Private contact details are intentionally omitted.
 const PROFILE = {
   email: '',
-  github: '',
-  linkedin: '',
+  github: 'https://github.com/muathmalsulami',
+  linkedin: 'https://www.linkedin.com/in/muath-m-alsulami/',
   cv: ''
 };
 
 const translations = {
   en: {
-    navAbout: 'About', navWork: 'Work', navJourney: 'Journey', navContact: 'Contact', navCta: "Let's talk",
+    projectCapstone: '001 / CAPSTONE', projectCoop: '002 / CO-OP EXPERIENCE', projectPersonal: '003 / PERSONAL PROJECT', indexAbout: '01 / ABOUT', indexWork: '02 / WORK', indexJourney: '03 / JOURNEY', indexToolkit: '04 / TOOLKIT', indexContact: '05 / CONTACT', viewSource: 'View source ↗', navAbout: 'About', navWork: 'Work', navJourney: 'Journey', navContact: 'Contact', navCta: "Let's talk",
     heroBadge: 'OPEN TO SOFTWARE & AI OPPORTUNITIES',
     heroLine1: 'I turn complex ideas', heroLine2: 'into useful', heroLine3: 'software<span class="period">.</span>',
     heroLead: "I'm Muath — a Computer Science & AI graduate who enjoys building thoughtful experiences, integrating intelligent systems, and making technology work in the real world.",
@@ -39,7 +35,7 @@ const translations = {
     linkEmail: 'Email me', linkGithub: 'GitHub', linkLinkedin: 'LinkedIn', linkCv: 'View CV'
   },
   ar: {
-    navAbout: 'عني', navWork: 'أعمالي', navJourney: 'رحلتي', navContact: 'تواصل', navCta: 'تواصل معي',
+    projectCapstone: '٠٠١ / مشروع تخرج', projectCoop: '٠٠٢ / تدريب تعاوني', projectPersonal: '٠٠٣ / مشروع شخصي', indexAbout: '٠١ / عني', indexWork: '٠٢ / أعمالي', indexJourney: '٠٣ / المسار', indexToolkit: '٠٤ / المهارات', indexContact: '٠٥ / تواصل', viewSource: 'عرض الشيفرة ↗', navAbout: 'عني', navWork: 'أعمالي', navJourney: 'رحلتي', navContact: 'تواصل', navCta: 'تواصل معي',
     heroBadge: 'متاح لفرص تطوير البرمجيات والذكاء الاصطناعي',
     heroLine1: 'أحوّل الأفكار المعقدة', heroLine2: 'إلى حلول', heroLine3: 'تُستخدم<span class="period">.</span>',
     heroLead: 'أنا معاذ، خريج علوم الحاسب والذكاء الاصطناعي. أهتم ببناء تجارب تقنية مدروسة، ودمج الأنظمة الذكية، وتطوير برمجيات تقدم قيمة فعلية في الواقع.',
@@ -169,11 +165,13 @@ function setLanguage(lang) {
   langSwitch.innerHTML = (lang === 'en' ? 'عربي' : 'EN') + ' <span aria-hidden="true">↗</span>';
   langSwitch.setAttribute('aria-label', lang === 'en' ? 'Switch language to Arabic' : 'Switch language to English');
   renderContact();
+  updateLabels();
+  if (dialog.open && activeProject) populateProject(activeProject);
   try { localStorage.setItem('muath-language', lang); } catch (_) {}
 }
 
 langSwitch.addEventListener('click', () => setLanguage(currentLang === 'en' ? 'ar' : 'en'));
-setLanguage(currentLang);
+
 
 document.getElementById('year').textContent = String(new Date().getFullYear());
 
@@ -196,10 +194,21 @@ updateScroll();
 
 const menuButton = document.getElementById('menu-button');
 const siteNav = document.getElementById('site-nav');
+function updateLabels() {
+  const ar = currentLang === 'ar';
+  document.querySelector('.skip-link').textContent = ar ? 'انتقل إلى المحتوى' : 'Skip to content';
+  document.querySelector('.brand').setAttribute('aria-label', ar ? 'معاذ، العودة للرئيسية' : 'Muath — back to home');
+  document.querySelector('.footer-inner a').setAttribute('aria-label', ar ? 'العودة للأعلى' : 'Back to top');
+  document.getElementById('contact-actions').setAttribute('aria-label', ar ? 'وسائل التواصل' : 'Contact methods');
+  document.querySelector('.site-nav').setAttribute('aria-label', ar ? 'التنقل الرئيسي' : 'Main navigation');
+  document.querySelector('.filters').setAttribute('aria-label', ar ? 'تصفية الأعمال' : 'Filter projects');
+  document.getElementById('dialog-close').setAttribute('aria-label', ar ? 'إغلاق التفاصيل' : 'Close project details');
+  document.getElementById('menu-button').setAttribute('aria-label', ar ? 'فتح القائمة' : 'Open menu');
+}
 function setMenu(open) {
   document.body.classList.toggle('menu-open', open);
   menuButton.setAttribute('aria-expanded', String(open));
-  menuButton.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  menuButton.setAttribute('aria-label', currentLang === 'ar' ? (open ? 'إغلاق القائمة' : 'فتح القائمة') : (open ? 'Close menu' : 'Open menu'));
 }
 menuButton.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
 siteNav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenu(false)));
@@ -245,13 +254,18 @@ filters.forEach(button => button.addEventListener('click', () => {
 function closeDialog() {
   dialog.close();
 }
-function openProject(key) {
+let activeProject = null;
+function populateProject(key) {
   const notes = projectNotes[key] && projectNotes[key][currentLang];
   if (!notes) return;
   document.getElementById('dialog-title').textContent = notes.title;
   document.getElementById('dialog-description').textContent = notes.description;
   document.getElementById('dialog-contribution').textContent = notes.contribution;
   document.getElementById('dialog-learning').textContent = notes.learning;
+}
+function openProject(key) {
+  activeProject = key;
+  populateProject(key);
   if (typeof dialog.showModal === 'function') dialog.showModal();
 }
 document.querySelectorAll('[data-open-project]').forEach(button => {
@@ -260,6 +274,8 @@ document.querySelectorAll('[data-open-project]').forEach(button => {
 document.getElementById('dialog-close').addEventListener('click', closeDialog);
 document.getElementById('dialog-done').addEventListener('click', closeDialog);
 dialog.addEventListener('click', event => { if (event.target === dialog) closeDialog(); });
+
+setLanguage(currentLang);
 
 // A small, optional parallax detail. Disabled on touch screens and for reduced motion.
 const motionAllowed = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;

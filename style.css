@@ -239,3 +239,12 @@ html[dir="rtl"] .outline-word { -webkit-text-stroke: 1px rgba(237,242,238,.8); }
 /* Tiny depth response on desktop pointer movement */
 .art-center { transform: translate(var(--parallax-x, 0px), var(--parallax-y, 0px)); transition: transform .3s ease-out; }
 .contact-empty[hidden] { display: none !important; }
+
+/* Progressive enhancement: content remains visible if JavaScript is unavailable. */
+.reveal { opacity: 1; transform: none; }
+.project-source { display:inline-flex; margin-top: 16px; color: var(--green-strong); font-weight: 700; font-size: 13px; text-decoration: underline; text-underline-offset: 5px; }
+.project-source:hover { color: white; }
+html[dir="rtl"] .hero-title, html[dir="rtl"] .section-display, html[dir="rtl"] .big-statement { letter-spacing: 0; line-height: 1.35; }
+@media (max-width: 800px) { .menu-button, .lang-switch { min-width: 44px; min-height: 44px; } }
+
+html[dir="rtl"] .outline-word { color: var(--text); -webkit-text-stroke: 0; }
