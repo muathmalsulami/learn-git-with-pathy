@@ -24,4 +24,6 @@ jobs:
       - run: npm install --no-save playwright@1.56.1
       - run: npx playwright install --with-deps chromium
       - run: node tests/browser.cjs
+      - run: node tests/identity-experiments.cjs
 
+      - run: node tests/builders.cjs
