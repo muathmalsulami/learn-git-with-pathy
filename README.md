@@ -60,3 +60,7 @@ This repository began as a Pathy Git & GitHub training project. Its history reta
 ## Use
 
 No open-source license has been granted for this repository. Contact the owner before reusing the portfolio's content or design.
+
+## Development approach
+
+The portfolio was developed with AI assistance, including OpenAI Codex, for design exploration, code and testing. Professional information is based on the owner’s supplied details; the owner makes the final creative decisions.
