@@ -256,9 +256,9 @@ html[dir="rtl"] .hero-name { font-family: Tajawal, sans-serif; }
 
 /* Motion is additive: content never depends on an observer to become readable. */
 @media (prefers-reduced-motion: no-preference) {
-  @keyframes enter-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes section-enter { from { opacity: .45; translate: 0 18px; } to { opacity: 1; translate: 0 0; } }
-  @keyframes dialog-enter { from { opacity: 0; transform: translateY(10px) scale(.985); } to { opacity: 1; transform: none; } }
+  @keyframes enter-up { from { transform: translateY(14px); } to { transform: translateY(0); } }
+  @keyframes section-enter { from { translate: 0 18px; } to { translate: 0 0; } }
+  @keyframes dialog-enter { from { transform: translateY(10px) scale(.985); } to { transform: none; } }
   @keyframes switch-tap { 50% { transform: scale(.94); } }
   .hero-eyebrow, .hero-name, .hero-title, .hero-lead, .hero-buttons, .hero-meta, .hero-art { animation: enter-up .65s both cubic-bezier(.2,.65,.25,1); }
   .hero-name { animation-delay: .07s; } .hero-title { animation-delay: .14s; }
