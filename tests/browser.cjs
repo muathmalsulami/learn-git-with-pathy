@@ -47,6 +47,15 @@ const server = createServer((request, response) => {
     await noScript.goto(url);
     assert(await noScript.locator('#site-nav a').first().isVisible());
     assert.equal(await noScript.locator('#contact-actions a').count(), 2);
+    const animated = await browser.newPage({ viewport: { width: 390, height: 844 }, hasTouch: true });
+    await animated.goto(url);
+    const mark = animated.locator('.signature-button');
+    await mark.tap();
+    assert(await mark.evaluate(element => element.classList.contains('is-revealed')));
+    await animated.emulateMedia({ reducedMotion: 'reduce' });
+    await animated.waitForFunction(() => document.querySelector('.signature-button').disabled);
+    assert(await mark.isDisabled());
+    await animated.close();
     console.log('Browser interaction checks passed');
   } finally { await browser.close(); server.close(); }
 })().catch(error => { console.error(error); server.close(); process.exitCode = 1; });

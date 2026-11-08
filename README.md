@@ -60,3 +60,7 @@ This repository began as a Pathy Git & GitHub training project. Its history reta
 ## Use
 
 No open-source license has been granted for this repository. Contact the owner before reusing the portfolio's content or design.
+
+## Identity proposal
+
+A proposed interactive identity is documented in [the identity review](docs/identity-proposal.md). It is subject to the owner's approval before publication.

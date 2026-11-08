@@ -168,6 +168,7 @@ function setLanguage(lang) {
     button.setAttribute('aria-label', lang === 'en' ? 'عربي — switch language to Arabic' : 'EN — switch language to English');
   });
   renderContact();
+  document.querySelector('.signature-button').setAttribute('aria-label', lang === 'ar' ? 'استكشف حركة الهوية' : 'Explore the animated identity');
   updateLabels();
   if (dialog.open && activeProject) populateProject(activeProject);
   try { localStorage.setItem('muath-language', lang); } catch (_) {}
@@ -205,7 +206,7 @@ const siteNav = document.getElementById('site-nav');
 function updateLabels() {
   const ar = currentLang === 'ar';
   document.querySelector('.skip-link').textContent = ar ? 'انتقل إلى المحتوى' : 'Skip to content';
-  document.querySelector('.brand').setAttribute('aria-label', ar ? 'M. MUATH / ALSULAMI — العودة للرئيسية' : 'M. MUATH / ALSULAMI — back to home');
+  document.querySelector('.brand').setAttribute('aria-label', ar ? 'MUATH / ALSULAMI — العودة للرئيسية' : 'MUATH / ALSULAMI — back to home');
   document.querySelector('.footer-inner a').setAttribute('aria-label', ar ? 'العودة للأعلى' : 'Back to top');
   document.getElementById('contact-actions').setAttribute('aria-label', ar ? 'وسائل التواصل' : 'Contact methods');
   document.querySelector('.site-nav').setAttribute('aria-label', ar ? 'التنقل الرئيسي' : 'Main navigation');
@@ -290,24 +291,39 @@ dialog.addEventListener('click', event => { if (event.target === dialog) closeDi
 
 setLanguage(currentLang);
 
-// A small, optional parallax detail. Disabled on touch screens and for reduced motion.
-const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-const finePointer = window.matchMedia('(pointer: fine)').matches;
-if (finePointer) {
-  const heroArt = document.querySelector('.hero-art');
-  heroArt.addEventListener('pointermove', event => {
-    const bounds = heroArt.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width - .5;
-    const y = (event.clientY - bounds.top) / bounds.height - .5;
-    heroArt.style.setProperty('--parallax-x', `${(x * 12).toFixed(1)}px`);
-    heroArt.style.setProperty('--parallax-y', `${(y * 12).toFixed(1)}px`);
-  });
-  motionQuery.addEventListener('change', () => {
-    heroArt.style.setProperty('--parallax-x', '0px');
-    heroArt.style.setProperty('--parallax-y', '0px');
-  });
-  heroArt.addEventListener('pointerleave', () => {
-    heroArt.style.setProperty('--parallax-x', '0px');
-    heroArt.style.setProperty('--parallax-y', '0px');
-  });
+// The mark settles at rest; pointer work is requested only on interaction.
+const identity = document.querySelector('.signature-button');
+const identityArea = document.querySelector('.signature-art');
+const identityMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let identityFrame = 0, identityTimer = 0, bounds = null, pointerX = 0, pointerY = 0;
+identity.disabled = identityMotion.matches;
+function resetIdentity() {
+  cancelAnimationFrame(identityFrame); identityFrame = 0; bounds = null;
+  identity.style.removeProperty('--mx'); identity.style.removeProperty('--my');
 }
+identityArea.addEventListener('pointerenter', event => {
+  if (!identityMotion.matches && event.pointerType === 'mouse') bounds = identityArea.getBoundingClientRect();
+});
+identityArea.addEventListener('pointermove', event => {
+  if (!bounds || identityMotion.matches || event.pointerType !== 'mouse') return;
+  pointerX = Math.max(-14, Math.min(14, ((event.clientX - bounds.left) / bounds.width - .5) * 28));
+  pointerY = Math.max(-14, Math.min(14, ((event.clientY - bounds.top) / bounds.height - .5) * 28));
+  if (!identityFrame) identityFrame = requestAnimationFrame(() => {
+    identity.style.setProperty('--mx', pointerX.toFixed(1) + 'px');
+    identity.style.setProperty('--my', pointerY.toFixed(1) + 'px'); identityFrame = 0;
+  });
+});
+identityArea.addEventListener('pointerleave', resetIdentity);
+identity.addEventListener('click', () => {
+  if (identityMotion.matches) return;
+  clearTimeout(identityTimer); identity.classList.add('is-revealed');
+  identityTimer = setTimeout(() => identity.classList.remove('is-revealed'), 1250);
+});
+identityMotion.addEventListener('change', () => {
+  resetIdentity(); clearTimeout(identityTimer); identity.classList.remove('is-revealed');
+  identity.disabled = identityMotion.matches;
+});
+window.addEventListener('resize', resetIdentity);
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) { resetIdentity(); clearTimeout(identityTimer); identity.classList.remove('is-revealed'); }
+});
