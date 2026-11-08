@@ -61,10 +61,6 @@ This repository began as a Pathy Git & GitHub training project. Its history reta
 
 No open-source license has been granted for this repository. Contact the owner before reusing the portfolio's content or design.
 
-## Identity proposal
-
-A proposed interactive identity is documented in [the identity review](docs/identity-proposal.md). It is subject to the owner's approval before publication.
-
 ## Development approach
 
-The portfolio was developed with AI assistance for design exploration, code and testing; professional information is based on the owner’s supplied details, and the owner makes the final creative decisions.
+The portfolio was developed with AI assistance, including OpenAI Codex, for design exploration, code and testing. Professional information is based on the owner’s supplied details; the owner makes the final creative decisions.
