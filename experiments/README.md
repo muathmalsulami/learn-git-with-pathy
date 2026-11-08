@@ -33,3 +33,15 @@ Principles studied include matching interaction to identity rather than adding a
 A connected, architectural M explores the path from idea to working system. Its five strokes bend locally with pointer proximity and open briefly on activation. The prototype includes entrance, return, touch, keyboard and reduced-motion behavior. The straight baseline gives the small mark a crown-like resemblance; the personal meaning is still too weak to establish it as the final identity. Compare it against Flow before approval. No production identity is changed.
 
 [Desktop and pointer recording](../evidence/trajectory.webm) · [Mobile recording](../evidence/trajectory-mobile.webm) · [Desktop screenshot](../evidence/trajectory-desktop.png) · [Mobile screenshot](../evidence/trajectory-mobile.png)
+
+## M / The Invisible Builders — working exploration
+
+This is a draft, not an approved identity or production release. The M shares one continuous cubic-path topology across Precision, Intelligence and Systems; the same geometry interpolates rather than crossfading. Click or press Enter/Space to cycle. The short scroll section illustrates a workflow with decorative cursors; it does not represent live agents. Skip is available and reduced motion shows the completed illustration. [Morph recording](../evidence/builders-morph.webm) · [Scroll recording](../evidence/builders-scroll.webm) · [Mobile recording](../evidence/builders-mobile.webm) · [Four-way comparison](../evidence/builders-comparison.webp).
+
+**Critical limitations:** the three shapes are recognizable but too similar for a strong brand system. The cursor choreography and final reveal remain basic, and the replay only returns to the beginning so the visitor can scroll through again. This first implementation is not a final creative acceptance. The favicon, social card and GitHub profile have deliberately not been updated pending an approved mark. The mobile video is browser emulation, not a physical device. Safari, screen readers, real-device performance, field INP and a second genuinely different direction have not been verified. No claim of 100/100 is made.
+
+**Local evidence:** Edge/Chromium, eight widths in Arabic and English, pointer, keyboard, emulated touch, reduced motion and no JavaScript checks passed. Axe found no violations in the tested English/Arabic states. Lighthouse lab on this noindex preview: performance 100, accessibility 100, best practices 100, SEO 63 (intentional noindex), LCP 1.1 s, CLS 0; these are not production field metrics. Raw reports: [Lighthouse](../evidence/builders-lighthouse.json) · [axe](../evidence/builders-axe.json).
+
+To try locally, download the branch ZIP, extract it, and open `experiments/builders/index.html`. The external Google Fonts are optional; local fallbacks work without them.
+
+The small circular pointer shown in the morph recording is a visual overlay following actual automated browser pointer events; it is not part of the website.

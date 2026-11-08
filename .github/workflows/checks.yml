@@ -26,3 +26,4 @@ jobs:
       - run: node tests/browser.cjs
       - run: node tests/identity-experiments.cjs
 
+      - run: node tests/builders.cjs
