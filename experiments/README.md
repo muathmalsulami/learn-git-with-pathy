@@ -27,3 +27,9 @@ Edge and Firefox were exercised locally for pointer path deformation, keyboard a
 ## Research
 
 Principles studied include matching interaction to identity rather than adding a generic effect ([Codrops](https://tympanus.net/codrops/2026/07/21/magnetic-commerce-building-the-dash-creative-website/)), explaining motion through working prototypes ([Codrops](https://tympanus.net/codrops/2026/02/13/1820-productions-minimal-design-maximal-motion/)), and adapting visual weight to smaller contexts ([Google Design](https://design.google/library/evolving-google-identity)). These references informed the approach; they are not copied assets. No claim of legal uniqueness is made.
+
+## Trajectory — additional direction (unapproved)
+
+A connected, architectural M explores the path from idea to working system. Its five strokes bend locally with pointer proximity and open briefly on activation. The prototype includes entrance, return, touch, keyboard and reduced-motion behavior. The straight baseline gives the small mark a crown-like resemblance; the personal meaning is still too weak to establish it as the final identity. Compare it against Flow before approval. No production identity is changed.
+
+[Desktop and pointer recording](../evidence/trajectory.webm) · [Mobile recording](../evidence/trajectory-mobile.webm) · [Desktop screenshot](../evidence/trajectory-desktop.png) · [Mobile screenshot](../evidence/trajectory-mobile.png)

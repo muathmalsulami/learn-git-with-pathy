@@ -18,7 +18,7 @@ const server = createServer((request, response) => {
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   const browser = await chromium.launch({ headless: true, ...(process.env.PORTFOLIO_BROWSER ? { executablePath: process.env.PORTFOLIO_BROWSER } : {}) });
   try {
-    for (const concept of ['flow', 'facet']) {
+    for (const concept of ['flow', 'facet', 'trajectory']) {
       const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, hasTouch: true });
       const errors = []; page.on('pageerror', error => errors.push(error.message));
       await page.goto(`http://127.0.0.1:${server.address().port}/experiments/${concept}/`);
@@ -54,4 +54,5 @@ const server = createServer((request, response) => {
     console.log('Experimental identity checks passed');
   } finally { await browser.close(); server.close(); }
 })().catch(error => { console.error(error); server.close(); process.exitCode = 1; });
+
 
