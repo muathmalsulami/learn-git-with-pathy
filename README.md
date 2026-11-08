@@ -64,3 +64,7 @@ No open-source license has been granted for this repository. Contact the owner b
 ## Development approach
 
 The portfolio was developed with AI assistance, including OpenAI Codex, for design exploration, code and testing. Professional information is based on the owner’s supplied details; the owner makes the final creative decisions.
+
+## Identity experiments
+
+Two nonproduction identity experiments and their limitations are documented in [the experiment review](experiments/README.md). Neither is approved for release.
