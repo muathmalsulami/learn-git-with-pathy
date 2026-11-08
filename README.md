@@ -2,15 +2,19 @@
 
 A bilingual personal portfolio presenting academic work, cooperative training, and a practical development workflow. Built with semantic HTML, CSS, and vanilla JavaScript; no build step or runtime framework is required.
 
-[Source repository](https://github.com/muathmalsulami/learn-git-with-pathy)
+[Live portfolio](https://muathmalsulami.github.io/learn-git-with-pathy/) · [Source repository](https://github.com/muathmalsulami/learn-git-with-pathy)
 
 ## Preview
 
-These screenshots show the local development version; public deployment has not yet been verified.
+Screenshots captured from the published site in English and Arabic.
 
 ![English desktop view](assets/desktop-current.webp)
 
 ![English mobile view](assets/mobile-current.webp)
+
+![Arabic desktop view](assets/desktop-ar.webp)
+
+![Arabic mobile view](assets/mobile-ar.webp)
 
 ## Features
 
