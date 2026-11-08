@@ -38,7 +38,7 @@ node --check script.js
 node tests/integrity.mjs
 ```
 
-The integrity check detects duplicate IDs, broken local fragments, missing referenced assets, and unsafe new-window links. The GitHub Actions workflow runs these checks for pushes and pull requests. Browser, accessibility, and performance testing should also be repeated on the deployed site; automated checks alone do not establish WCAG conformance.
+The integrity check detects duplicate IDs, broken local fragments, missing referenced assets, and unsafe new-window links. The GitHub Actions workflow runs these checks and a Chromium interaction test for pushes and pull requests. The browser test can also be run with Playwright installed using `node tests/browser.cjs`. Browser, accessibility, and performance testing should also be repeated on the deployed site; automated checks alone do not establish WCAG conformance.
 
 ## Project context
 

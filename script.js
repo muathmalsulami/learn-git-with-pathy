@@ -120,6 +120,7 @@ const htmlKeys = new Set([
 ]);
 
 const langSwitch = document.getElementById('lang-switch');
+const dialogLanguage = document.getElementById('dialog-language');
 const dialog = document.getElementById('project-dialog');
 const contactActions = document.getElementById('contact-actions');
 const contactEmpty = document.getElementById('contact-empty');
@@ -162,20 +163,22 @@ function setLanguage(lang) {
     if (htmlKeys.has(key)) element.innerHTML = translations[lang][key];
     else element.textContent = translations[lang][key];
   });
-  langSwitch.innerHTML = (lang === 'en' ? 'عربي' : 'EN') + ' <span aria-hidden="true">↗</span>';
-  langSwitch.setAttribute('aria-label', lang === 'en' ? 'عربي — switch language to Arabic' : 'EN — switch language to English');
+  [langSwitch, dialogLanguage].forEach(button => {
+    button.innerHTML = (lang === 'en' ? 'عربي' : 'EN') + ' <span aria-hidden="true">↗</span>';
+    button.setAttribute('aria-label', lang === 'en' ? 'عربي — switch language to Arabic' : 'EN — switch language to English');
+  });
   renderContact();
   updateLabels();
   if (dialog.open && activeProject) populateProject(activeProject);
   try { localStorage.setItem('muath-language', lang); } catch (_) {}
 }
 
-langSwitch.addEventListener('click', () => {
+[langSwitch, dialogLanguage].forEach(button => button.addEventListener('click', () => {
   setLanguage(currentLang === 'en' ? 'ar' : 'en');
-  langSwitch.classList.remove('language-changed');
-  void langSwitch.offsetWidth;
-  langSwitch.classList.add('language-changed');
-});
+  button.classList.remove('language-changed');
+  void button.offsetWidth;
+  button.classList.add('language-changed');
+}));
 
 
 document.getElementById('year').textContent = String(new Date().getFullYear());

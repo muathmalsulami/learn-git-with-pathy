@@ -273,3 +273,7 @@ html[dir="rtl"] .hero-name { font-family: Tajawal, sans-serif; }
 }
 
 html[dir="rtl"] .contact h2 em { color: #174333; -webkit-text-stroke: 0; }
+
+.dialog-actions { display: flex; align-items: center; gap: 16px; }
+.dialog-language { min-width: 44px; min-height: 44px; }
+.dialog-close { min-width: 44px; min-height: 44px; }
