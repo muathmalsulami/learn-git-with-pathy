@@ -276,10 +276,10 @@ html[dir="rtl"] .contact h2 em { color: #174333; -webkit-text-stroke: 0; }
 @media (max-width:530px) { .brand-mark { width:30px; height:30px; } }
 /* On phones, bring the mark into the first screen without hiding the profile details. */
 @media (max-width: 530px) {
-  .hero-copy { display: contents; }
+  .hero-copy { display: block; }
   .hero-content { gap: 0; }
-  .hero-art.signature-art { order: 1; width: min(63%, 240px); margin: 24px auto 10px; }
-  .hero-meta { order: 2; margin-top: 16px; }
+  .hero-art.signature-art { width: min(63%, 240px); margin: 24px auto 10px; }
+  .hero-meta { margin-top: 24px; }
   .hero-bottom { margin-top: 28px; }
 }
 /* Stable system typography keeps the first screen still while optional web fonts load. */
@@ -290,3 +290,6 @@ html[dir] .hero .hero-eyebrow,
 html[dir] .hero .hero-meta,
 html[dir] .hero .meta-label,
 html[dir] .hero .button { font-family: Arial, sans-serif; }
+
+/* Preserve the Arabic typeface while keeping the same semantic layout at every width. */
+html[dir="rtl"] .hero .hero-title, html[dir="rtl"] .hero .hero-name, html[dir="rtl"] .hero .hero-lead, html[dir="rtl"] .hero .hero-eyebrow, html[dir="rtl"] .hero .hero-meta, html[dir="rtl"] .hero .meta-label, html[dir="rtl"] .hero .button { font-family: Tajawal, sans-serif; }

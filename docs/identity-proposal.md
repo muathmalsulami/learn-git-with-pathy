@@ -1,6 +1,6 @@
 # Identity proposal: The Join
 
-This branch is a proposal for review. The live site remains on the previous identity until the owner approves the change.
+The owner did not approve this earlier proposal. It is retained as historical context while a replacement is explored; do not merge or deploy this branch on the basis of this design.
 
 Two opposing, open forms meet around a small central diamond. The structure is intended to suggest connecting separate components into a useful whole. The mark is a single-color vector; its identity does not require a glow, lettering, or motion. The interactive version separates and recombines its components on activation. On pointer devices, the pieces move in opposing directions, then settle when the pointer leaves. Reduced motion presents the completed static mark.
 

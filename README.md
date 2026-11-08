@@ -64,3 +64,7 @@ No open-source license has been granted for this repository. Contact the owner b
 ## Identity proposal
 
 A proposed interactive identity is documented in [the identity review](docs/identity-proposal.md). It is subject to the owner's approval before publication.
+
+## Development approach
+
+The portfolio was developed with AI assistance for design exploration, code and testing; professional information is based on the owner’s supplied details, and the owner makes the final creative decisions.

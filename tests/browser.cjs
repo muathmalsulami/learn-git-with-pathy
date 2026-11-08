@@ -24,10 +24,14 @@ const server = createServer((request, response) => {
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(url);
-    for (const language of ['en', 'ar']) {
-      if (language === 'ar') await page.locator('#lang-switch').click();
-      assert(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth), `${language} overflows`);
+    for (const width of [320, 360, 390, 430, 768, 1024, 1440, 1920]) {
+      await page.setViewportSize({ width, height: 900 });
+      for (const language of ['en', 'ar']) {
+        if (await page.locator('html').getAttribute('lang') !== language) await page.locator('#lang-switch').click();
+        assert(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth), `${language} overflows at ${width}px`);
+      }
     }
+    await page.setViewportSize({ width: 320, height: 800 });
     await page.locator('#menu-button').click();
     assert.equal(await page.locator('#menu-button').getAttribute('aria-expanded'), 'true');
     await page.keyboard.press('Escape');
@@ -49,7 +53,21 @@ const server = createServer((request, response) => {
     assert.equal(await noScript.locator('#contact-actions a').count(), 2);
     const animated = await browser.newPage({ viewport: { width: 390, height: 844 }, hasTouch: true });
     await animated.goto(url);
+    const area = animated.locator('.signature-art');
+    await area.scrollIntoViewIfNeeded();
+    const rect = await area.boundingBox();
+    await animated.mouse.move(rect.x + rect.width * .2, rect.y + rect.height * .3);
+    await animated.waitForFunction(() => !!document.querySelector('.signature-button').style.getPropertyValue('--mx'));
+    const first = await animated.locator('.signature-button').evaluate(e => e.style.getPropertyValue('--mx'));
+    await animated.mouse.move(rect.x + rect.width * .8, rect.y + rect.height * .7);
+    await animated.waitForFunction(value => document.querySelector('.signature-button').style.getPropertyValue('--mx') !== value, first);
+    await animated.mouse.move(0, 0);
+    await animated.waitForFunction(() => !document.querySelector('.signature-button').style.getPropertyValue('--mx'));
     const mark = animated.locator('.signature-button');
+    await mark.focus();
+    await animated.keyboard.press('Enter');
+    assert(await mark.evaluate(element => element.classList.contains('is-revealed')));
+    await animated.waitForTimeout(1400);
     await mark.tap();
     assert(await mark.evaluate(element => element.classList.contains('is-revealed')));
     await animated.emulateMedia({ reducedMotion: 'reduce' });
