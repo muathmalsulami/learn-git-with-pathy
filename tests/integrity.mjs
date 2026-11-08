@@ -1,0 +1,10 @@
+import { readFileSync, existsSync } from 'node:fs';
+import assert from 'node:assert/strict';
+const html = readFileSync('index.html', 'utf8');
+const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
+assert.equal(new Set(ids).size, ids.length, 'Duplicate HTML id');
+for (const match of html.matchAll(/href="#([^"]+)"/g)) assert(ids.includes(match[1]), `Missing fragment: ${match[1]}`);
+for (const match of html.matchAll(/(?:src|href)="(assets\/[^"?#]+)"/g)) assert(existsSync(match[1]), `Missing asset: ${match[1]}`);
+for (const match of html.matchAll(/<a\b[^>]*target="_blank"[^>]*>/g)) assert(/rel="[^"]*noopener[^\"]*"/.test(match[0]), 'External blank link needs noopener');
+assert(html.includes('<main id="main">'), 'Skip target must exist');
+console.log('Static integrity checks passed');
