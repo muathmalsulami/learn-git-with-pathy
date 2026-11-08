@@ -1,19 +1,15 @@
-/*
- * PERSONALIZE BEFORE PUBLISHING
- * Add ONLY links that belong to you. Leave a field empty to hide that button.
- * Example: github: 'https://github.com/your-handle'
- */
+// Verified public profiles. Private contact details are intentionally omitted.
 const PROFILE = {
   email: '',
-  github: '',
-  linkedin: '',
+  github: 'https://github.com/muathmalsulami',
+  linkedin: 'https://www.linkedin.com/in/muath-m-alsulami/',
   cv: ''
 };
 
 const translations = {
   en: {
-    navAbout: 'About', navWork: 'Work', navJourney: 'Journey', navContact: 'Contact', navCta: "Let's talk",
-    heroBadge: 'OPEN TO SOFTWARE & AI OPPORTUNITIES',
+    projectCapstone: '001 / CAPSTONE', projectCoop: '002 / CO-OP EXPERIENCE', projectPersonal: '003 / PERSONAL PROJECT', indexAbout: '01 / ABOUT', indexWork: '02 / WORK', indexJourney: '03 / JOURNEY', indexToolkit: '04 / TOOLKIT', indexContact: '05 / CONTACT', viewSource: 'View source ↗', navAbout: 'About', navWork: 'Work', navJourney: 'Journey', navContact: 'Contact', navCta: "Let's talk",
+    heroName: 'Muath Alsulami', heroBadge: 'COMPUTER SCIENCE & AI GRADUATE',
     heroLine1: 'I turn complex ideas', heroLine2: 'into useful', heroLine3: 'software<span class="period">.</span>',
     heroLead: "I'm Muath — a Computer Science & AI graduate who enjoys building thoughtful experiences, integrating intelligent systems, and making technology work in the real world.",
     heroPrimary: 'Explore selected work', heroSecondary: 'More about me', metaBased: 'BASED IN', metaBasedValue: 'Saudi Arabia', metaFocus: 'FOCUS', metaFocusValue: 'Software · AI · Systems', scrollToExplore: 'SCROLL TO EXPLORE',
@@ -39,8 +35,8 @@ const translations = {
     linkEmail: 'Email me', linkGithub: 'GitHub', linkLinkedin: 'LinkedIn', linkCv: 'View CV'
   },
   ar: {
-    navAbout: 'عني', navWork: 'أعمالي', navJourney: 'رحلتي', navContact: 'تواصل', navCta: 'تواصل معي',
-    heroBadge: 'متاح لفرص تطوير البرمجيات والذكاء الاصطناعي',
+    projectCapstone: '٠٠١ / مشروع تخرج', projectCoop: '٠٠٢ / تدريب تعاوني', projectPersonal: '٠٠٣ / مشروع شخصي', indexAbout: '٠١ / عني', indexWork: '٠٢ / أعمالي', indexJourney: '٠٣ / المسار', indexToolkit: '٠٤ / المهارات', indexContact: '٠٥ / تواصل', viewSource: 'عرض الشيفرة ↗', navAbout: 'عني', navWork: 'أعمالي', navJourney: 'رحلتي', navContact: 'تواصل', navCta: 'تواصل معي',
+    heroName: 'معاذ السلمي', heroBadge: 'خريج علوم الحاسب والذكاء الاصطناعي',
     heroLine1: 'أحوّل الأفكار المعقدة', heroLine2: 'إلى حلول', heroLine3: 'تُستخدم<span class="period">.</span>',
     heroLead: 'أنا معاذ، خريج علوم الحاسب والذكاء الاصطناعي. أهتم ببناء تجارب تقنية مدروسة، ودمج الأنظمة الذكية، وتطوير برمجيات تقدم قيمة فعلية في الواقع.',
     heroPrimary: 'استكشف أعمالي', heroSecondary: 'اعرف المزيد عني', metaBased: 'الموقع', metaBasedValue: 'المملكة العربية السعودية', metaFocus: 'الاهتمامات', metaFocusValue: 'البرمجيات · الذكاء الاصطناعي · الأنظمة', scrollToExplore: 'مرّر لاكتشاف المزيد',
@@ -72,7 +68,7 @@ const projectNotes = {
     en: {
       title: 'Numoo — Graduation Project',
       description: 'A collaborative university capstone combining application development and intelligent functionality.',
-      contribution: 'I worked on application development and Flask-based integration, connecting components and model-powered functionality. The AI models were developed by other members of the team.',
+      contribution: 'I worked on application development and Flask-based integration, connecting components and model-powered functionality. I was not responsible for training the AI models.',
       learning: 'How to integrate work across a team, design around application needs, and make AI functionality usable through a software interface.'
     },
     ar: {
@@ -124,6 +120,7 @@ const htmlKeys = new Set([
 ]);
 
 const langSwitch = document.getElementById('lang-switch');
+const dialogLanguage = document.getElementById('dialog-language');
 const dialog = document.getElementById('project-dialog');
 const contactActions = document.getElementById('contact-actions');
 const contactEmpty = document.getElementById('contact-empty');
@@ -156,24 +153,33 @@ function setLanguage(lang) {
   currentLang = lang;
   document.documentElement.lang = lang;
   document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-  document.title = lang === 'ar' ? 'معاذ السلمي — ملف أعمالي' : 'Muath Al-Sulami — Software & AI Portfolio';
+  document.title = lang === 'ar' ? 'معاذ السلمي — ملف أعمالي' : 'Muath Alsulami — Software & AI Portfolio';
   document.querySelector('meta[name="description"]').content = lang === 'ar'
     ? 'معاذ السلمي، خريج علوم الحاسب والذكاء الاصطناعي. مشاريع برمجية وتجارب في تطوير التطبيقات والأنظمة.'
-    : 'Muath Al-Sulami — Computer Science and Artificial Intelligence graduate building practical software and intelligent experiences.';
+    : 'Muath Alsulami — Computer Science and Artificial Intelligence graduate building practical software and intelligent experiences.';
   document.querySelectorAll('[data-i18n]').forEach(element => {
     const key = element.dataset.i18n;
     if (!(key in translations[lang])) return;
     if (htmlKeys.has(key)) element.innerHTML = translations[lang][key];
     else element.textContent = translations[lang][key];
   });
-  langSwitch.innerHTML = (lang === 'en' ? 'عربي' : 'EN') + ' <span aria-hidden="true">↗</span>';
-  langSwitch.setAttribute('aria-label', lang === 'en' ? 'Switch language to Arabic' : 'Switch language to English');
+  [langSwitch, dialogLanguage].forEach(button => {
+    button.innerHTML = (lang === 'en' ? 'عربي' : 'EN') + ' <span aria-hidden="true">↗</span>';
+    button.setAttribute('aria-label', lang === 'en' ? 'عربي — switch language to Arabic' : 'EN — switch language to English');
+  });
   renderContact();
+  updateLabels();
+  if (dialog.open && activeProject) populateProject(activeProject);
   try { localStorage.setItem('muath-language', lang); } catch (_) {}
 }
 
-langSwitch.addEventListener('click', () => setLanguage(currentLang === 'en' ? 'ar' : 'en'));
-setLanguage(currentLang);
+[langSwitch, dialogLanguage].forEach(button => button.addEventListener('click', () => {
+  setLanguage(currentLang === 'en' ? 'ar' : 'en');
+  button.classList.remove('language-changed');
+  void button.offsetWidth;
+  button.classList.add('language-changed');
+}));
+
 
 document.getElementById('year').textContent = String(new Date().getFullYear());
 
@@ -196,10 +202,22 @@ updateScroll();
 
 const menuButton = document.getElementById('menu-button');
 const siteNav = document.getElementById('site-nav');
+function updateLabels() {
+  const ar = currentLang === 'ar';
+  document.querySelector('.skip-link').textContent = ar ? 'انتقل إلى المحتوى' : 'Skip to content';
+  document.querySelector('.brand').setAttribute('aria-label', ar ? 'M. MUATH / ALSULAMI — العودة للرئيسية' : 'M. MUATH / ALSULAMI — back to home');
+  document.querySelector('.footer-inner a').setAttribute('aria-label', ar ? 'العودة للأعلى' : 'Back to top');
+  document.getElementById('contact-actions').setAttribute('aria-label', ar ? 'وسائل التواصل' : 'Contact methods');
+  document.querySelector('.site-nav').setAttribute('aria-label', ar ? 'التنقل الرئيسي' : 'Main navigation');
+  document.querySelector('.filters').setAttribute('aria-label', ar ? 'تصفية الأعمال' : 'Filter projects');
+  document.getElementById('dialog-close').setAttribute('aria-label', ar ? 'إغلاق التفاصيل' : 'Close project details');
+  const open = document.body.classList.contains('menu-open');
+  document.getElementById('menu-button').setAttribute('aria-label', ar ? (open ? 'إغلاق القائمة' : 'فتح القائمة') : (open ? 'Close menu' : 'Open menu'));
+}
 function setMenu(open) {
   document.body.classList.toggle('menu-open', open);
   menuButton.setAttribute('aria-expanded', String(open));
-  menuButton.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  menuButton.setAttribute('aria-label', currentLang === 'ar' ? (open ? 'إغلاق القائمة' : 'فتح القائمة') : (open ? 'Close menu' : 'Open menu'));
 }
 menuButton.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
 siteNav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenu(false)));
@@ -215,7 +233,11 @@ if ('IntersectionObserver' in window) {
       }
     });
   }, { threshold: .08, rootMargin: '0px 0px -25px 0px' });
-  document.querySelectorAll('.reveal').forEach(node => revealObserver.observe(node));
+  document.querySelectorAll('.reveal').forEach((node, index) => {
+    if (node.closest('.hero')) return;
+    node.style.setProperty('--reveal-delay', `${(index % 3) * 70}ms`);
+    revealObserver.observe(node);
+  });
 
   const navLinks = [...siteNav.querySelectorAll('a')];
   const sectionObserver = new IntersectionObserver(entries => {
@@ -245,13 +267,18 @@ filters.forEach(button => button.addEventListener('click', () => {
 function closeDialog() {
   dialog.close();
 }
-function openProject(key) {
+let activeProject = null;
+function populateProject(key) {
   const notes = projectNotes[key] && projectNotes[key][currentLang];
   if (!notes) return;
   document.getElementById('dialog-title').textContent = notes.title;
   document.getElementById('dialog-description').textContent = notes.description;
   document.getElementById('dialog-contribution').textContent = notes.contribution;
   document.getElementById('dialog-learning').textContent = notes.learning;
+}
+function openProject(key) {
+  activeProject = key;
+  populateProject(key);
   if (typeof dialog.showModal === 'function') dialog.showModal();
 }
 document.querySelectorAll('[data-open-project]').forEach(button => {
@@ -261,10 +288,12 @@ document.getElementById('dialog-close').addEventListener('click', closeDialog);
 document.getElementById('dialog-done').addEventListener('click', closeDialog);
 dialog.addEventListener('click', event => { if (event.target === dialog) closeDialog(); });
 
+setLanguage(currentLang);
+
 // A small, optional parallax detail. Disabled on touch screens and for reduced motion.
-const motionAllowed = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 const finePointer = window.matchMedia('(pointer: fine)').matches;
-if (motionAllowed && finePointer) {
+if (finePointer) {
   const heroArt = document.querySelector('.hero-art');
   heroArt.addEventListener('pointermove', event => {
     const bounds = heroArt.getBoundingClientRect();
@@ -272,6 +301,10 @@ if (motionAllowed && finePointer) {
     const y = (event.clientY - bounds.top) / bounds.height - .5;
     heroArt.style.setProperty('--parallax-x', `${(x * 12).toFixed(1)}px`);
     heroArt.style.setProperty('--parallax-y', `${(y * 12).toFixed(1)}px`);
+  });
+  motionQuery.addEventListener('change', () => {
+    heroArt.style.setProperty('--parallax-x', '0px');
+    heroArt.style.setProperty('--parallax-y', '0px');
   });
   heroArt.addEventListener('pointerleave', () => {
     heroArt.style.setProperty('--parallax-x', '0px');
