@@ -54,5 +54,3 @@ const server = createServer((request, response) => {
     console.log('Experimental identity checks passed');
   } finally { await browser.close(); server.close(); }
 })().catch(error => { console.error(error); server.close(); process.exitCode = 1; });
-
-
